@@ -1,5 +1,8 @@
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
-    game.showLongText("please press x", DialogLayout.Bottom)
+    game.over(true)
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite2.setVelocity(200, 0)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.setImage(img`
@@ -57,6 +60,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         ........................
         `)
 })
+let mySprite2: Sprite = null
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
     ....ffffff..............
@@ -84,7 +88,28 @@ mySprite = sprites.create(img`
     ........................
     ........................
     `, SpriteKind.Player)
-controller.moveSprite(mySprite, 100, 25)
+controller.moveSprite(mySprite, 100, 100)
 scene.cameraFollowSprite(mySprite)
 mySprite.ay = 150
 tiles.setTilemap(tilemap`level1`)
+mySprite2 = sprites.create(img`
+    ...........fffffff...ccfff..........
+    ..........fbbbbbbbffcbbbbf..........
+    ..........fbb111bbbbbffbf...........
+    ..........fb11111ffbbbbff...........
+    ..........f1cccc1ffbbbbbcff.........
+    ..........ffc1c1c1bbcbcbcccf........
+    ...........fcc3331bbbcbcbcccf..ccccc
+    ............c333c1bbbcbcbccccfcddbbc
+    ............c333c1bbbbbbbcccccddbcc.
+    ............c333c11bbbbbccccccbbcc..
+    ...........cc331c11bbbbccccccfbccf..
+    ...........cc13c11cbbbcccccbbcfccf..
+    ...........c111111cbbbfdddddc.fbbcf.
+    ............cc1111fbdbbfdddc...fbbf.
+    ..............cccfffbdbbfcc.....fbbf
+    ....................fffff........fff
+    `, SpriteKind.Enemy)
+game.onUpdateInterval(500, function () {
+    mySprite2.setPosition(randint(-50, 50), randint(-50, 50))
+})
