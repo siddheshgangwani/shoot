@@ -1,3 +1,6 @@
+statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 50, function (status) {
+    mySprite2.destroy()
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     projectile = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
@@ -61,14 +64,15 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . f f f . . . . . . 
         `)
 })
-statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 40, function (status) {
-    mySprite2.destroy()
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
+    info.changeScoreBy(1)
+    scene.cameraShake(10, 500)
 })
 scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile1`, function (sprite, location) {
     game.over(true)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
-    statusbar.value += -20
+    statusbar.value += -25
     mySprite2.setImage(img`
         ........................
         ........................
@@ -151,4 +155,4 @@ tiles.placeOnRandomTile(mySprite, assets.tile`myTile0`)
 tiles.placeOnRandomTile(mySprite2, sprites.castle.tilePath5)
 statusbar = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
 statusbar.attachToSprite(mySprite2)
-statusbar.value = 20
+statusbar.value = 100
