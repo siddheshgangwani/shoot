@@ -66,7 +66,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
     info.changeScoreBy(1)
-    scene.cameraShake(10, 500)
+    scene.cameraShake(4, 500)
 })
 scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile1`, function (sprite, location) {
     game.over(true)
@@ -99,6 +99,10 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
         ........................
         ........................
         `)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    game.over(false)
+    game.reset()
 })
 let projectile: Sprite = null
 let statusbar: StatusBarSprite = null
@@ -151,6 +155,7 @@ mySprite2 = sprites.create(img`
 controller.moveSprite(mySprite, 270, 100)
 scene.cameraFollowSprite(mySprite)
 tiles.setTilemap(tilemap`level1`)
+scene.setBackgroundColor(9)
 tiles.placeOnRandomTile(mySprite, assets.tile`myTile0`)
 tiles.placeOnRandomTile(mySprite2, sprites.castle.tilePath5)
 statusbar = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
