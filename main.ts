@@ -72,7 +72,7 @@ scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile1`, function (sprit
     game.over(true)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
-    statusbar.value += -25
+    statusbar.value += -10
     mySprite2.setImage(img`
         ........................
         ........................
